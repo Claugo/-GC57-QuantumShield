@@ -337,21 +337,24 @@ class Invia(tk.Toplevel):
             self.semiprimo_path = path
             semipsel = os.path.basename(path)
             self.semiprimo_codice = semipsel.split(".")[0]
-            chiave_path = f"d:/chiave_{self.semiprimo_codice}"
+            chiave_path = f"{apri_dati}chiave_{self.semiprimo_codice}"
             if not os.path.exists(chiave_path):
                 messagebox.showerror("Errore", f"Chiave USB non trovata: {chiave_path}")
                 return
             with open(chiave_path, "r") as f:
                 a = int(f.readline())
-                b = int(f.readline())
-                _ = int(f.readline())
-                self.chiaveS = a**b
+                # b = int(f.readline())
+                # _ = int(f.readline())
+                self.chiaveS = a
 
     def codifica(self):
         if not self.semiprimo_path or not self.chiaveS or not self.semiprimo_codice:
             messagebox.showwarning("Errore", "Prima seleziona la codifica.")
             return
         testo = self.testo.get("1.0", tk.END).strip()
+        if not testo:
+            messagebox.showerror("Errore", "Inserisci un messaggio di testo prima di procedere.")
+            return        
         allegato = self.allegato_bytes
         nome_file = os.path.basename(self.entry_allegato.get()) if allegato else ""
         nome_file_bytes = nome_file.encode()
@@ -435,15 +438,15 @@ class Ricevi(tk.Toplevel):
         if not path:
             return
         semiprimo, blocco_byte, cifrato, codice = carica_file_cifrato(path)
-        chiave_path = f"d:/chiave_{codice}"
+        chiave_path = f"{apri_dati}chiave_{codice}"
         if not os.path.exists(chiave_path):
             messagebox.showerror("Errore", f"Chiave USB non trovata: {chiave_path}")
             return
         with open(chiave_path, "r") as f:
             a = int(f.readline())
-            b = int(f.readline())
-            _ = int(f.readline())
-            chiaveS = a**b
+            # b = int(f.readline())
+            # _ = int(f.readline())
+            chiaveS = a
         p, q = gc57_factor(semiprimo, chiaveS)
         chiave = get_key(p, q, blocco_byte)
         decifrato = cifra_dati(cifrato, chiave)
