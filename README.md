@@ -9,7 +9,7 @@ GC57 QuantumShield è un sistema avanzato di crittografia progettato per offrire
 
 Per funzionare, questo programma necessita della **libreria semiprimi** e delle sue **rispettive chiavi**.
 
-Per la creazione di queste librerie, è disponibile il programma `crea_database_semiprimi_tempo_M.py` nel repository [Link al tuo repository Zenodo per il programma `crea_database_semiprimi_tempo_M.py` (https://zenodo.org/records/15640331)].
+Per la creazione di queste librerie, è disponibile il programma `crea_database_semiprimi_tempo_M.py` nel repository 
 
 ---
 
